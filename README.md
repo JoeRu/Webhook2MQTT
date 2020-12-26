@@ -17,7 +17,7 @@ i strongly suggest to put some reverse-proxy ahead of your installation.
 ## Architecture
 
 Pretty simple - a flask app initiating a new thread to forward the expected json object to mqtt. No pathes implemented.
-Checkout app/main.py - it really simple - so modifications are easy.
+Checkout app/main.py - it is really simple - so modifications are easy.
 
 ## Test
 a simple curl test should do the trick - you should see the json-object in your mqtt-browser
