@@ -2,6 +2,7 @@ version: "3.3"
 services:
   webhook2mqtt:
     build: .
+    restart: always
     ports:
       - "127.0.0.1:5058:80"
     dns_search: lan
