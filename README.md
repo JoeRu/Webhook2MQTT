@@ -1,5 +1,5 @@
 # Webhook2MQTT
-This enable a pretty easy python/flask Application that takes all incoming (json) message as a webhook (for example for netatmo or telegram) and forwards it to a given mqtt-adress.
+This enable a pretty easy python/flask Application that takes all incoming (json) message as a webhook/API Integration (for example for netatmo.com or telegram or thethingsnetwork.com (TTN)) and forwards it to a given mqtt-adress.
 
 ## Setup
 change in docker-compose the environment variable to connect to your mqtt server
