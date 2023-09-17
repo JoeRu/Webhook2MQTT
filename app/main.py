@@ -33,7 +33,7 @@ else:
 logger.info("set MQTT_SERVER to {}".format(mqtt_server))
 
 if 'MQTT_PORT' in os.environ:
-    mqtt_port = os.environ['MQTT_PORT'] 
+    mqtt_port = int(os.environ['MQTT_PORT'])
 else:
     mqtt_port = 1883
 logger.info("set MQTT_PORT to {}".format(mqtt_port))
