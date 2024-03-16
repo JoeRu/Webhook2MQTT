@@ -13,7 +13,7 @@ services:
      TZ: "Europe/Berlin"
      MQTT_SERVER: 'home.jru.me'
      MQTT_PORT: 1883
-     MQTT_PATH: 'webhook'
+     MQTT_PATH: 'homeassistant/webhook'
     networks:
       - traefik_proxy
     labels:
