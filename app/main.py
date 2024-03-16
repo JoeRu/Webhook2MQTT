@@ -51,7 +51,7 @@ def workit(params):
     logger.info("workit:")
     logger.info(params) 
     params['timestamp'] = datetime.datetime.now().isoformat()
-    client = mqtt.Client()
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
     client.connect(mqtt_server, mqtt_port, 60)
     client.publish(mqtt_path, json.dumps(params),qos=0,retain=True)
     client.disconnect()
