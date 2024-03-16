@@ -3,6 +3,7 @@ services:
   webhook2mqtt:
     build: .
     restart: always
+# adapt to your needs
 #    ports:
 #      - "127.0.0.1:5058:80"
 #    dns_search: lan
@@ -14,23 +15,25 @@ services:
      MQTT_SERVER: 'home.jru.me'
      MQTT_PORT: 1883
      MQTT_PATH: 'homeassistant/webhook'
-    networks:
-      - traefik_proxy
+# example config for https with traefik
+#    networks:
+#      - traefik_proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.netatmo_jru_me_http.entrypoints=web"
-      - "traefik.http.routers.netatmo_jru_me_http.rule=Host(`netatmo.jru.me`)"
+      - "traefik.http.routers.webhook2mqtt_router_http.entrypoints=web"
+      - "traefik.http.routers.webhook2mqtt_router_http.rule=Host(`netatmo.jru.me`)"
 #      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
-#      - "traefik.http.routers.netatmo_jru_me_http.middlewares=https_redirect"
-      - "traefik.http.routers.netatmo_jru_me.entrypoints=websecure"
-      - "traefik.http.routers.netatmo_jru_me.rule=Host(`netatmo.jru.me`)"
-      - "traefik.http.routers.netatmo_jru_me.tls=true"
-      - "traefik.http.routers.netatmo_jru_me.tls.certresolver=my_certresolver"
+#      - "traefik.http.routers.webhook2mqtt_router_http.middlewares=https_redirect"
+      - "traefik.http.routers.webhook2mqtt_router.entrypoints=websecure"
+      - "traefik.http.routers.webhook2mqtt_router.rule=Host(`netatmo.jru.me`)"
+      - "traefik.http.routers.webhook2mqtt_router.tls=true"
+      - "traefik.http.routers.webhook2mqtt_router.tls.certresolver=my_certresolver"
     restart: always
+# log to syslog | optional
     logging:
       driver: syslog
 
-networks:
-  traefik_proxy:
-    name: traefik
-    external: true
+#networks:
+#  traefik_proxy:
+#    name: traefik
+#    external: true
