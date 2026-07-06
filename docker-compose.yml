@@ -1,4 +1,3 @@
-version: "3.6"
 services:
   webhook2mqtt:
     build: .
@@ -11,24 +10,27 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "/etc/timezone:/etc/timezone:ro"
     environment:
-     TZ: "Europe/Berlin"
-     MQTT_SERVER: 'home.jru.me'
-     MQTT_PORT: 1883
-     MQTT_PATH: 'homeassistant/webhook'
+      TZ: ${TZ:-Europe/Berlin}
+      MQTT_SERVER: ${MQTT_SERVER}
+      MQTT_PORT: ${MQTT_PORT:-1883}
+      MQTT_PATH: ${MQTT_PATH:-webhook}
+      # MQTT_USER: ${MQTT_USER}
+      # MQTT_PASSWORD: ${MQTT_PASSWORD}
+      # MQTT_TLS: ${MQTT_TLS:-false}
+      # WEBHOOK_TOKEN: ${WEBHOOK_TOKEN}
 # example config for https with traefik
 #    networks:
 #      - traefik_proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.webhook2mqtt_router_http.entrypoints=web"
-      - "traefik.http.routers.webhook2mqtt_router_http.rule=Host(`netatmo.jru.me`)"
+      - "traefik.http.routers.webhook2mqtt_router_http.rule=Host(`${WEBHOOK_HOST}`)"
 #      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
 #      - "traefik.http.routers.webhook2mqtt_router_http.middlewares=https_redirect"
       - "traefik.http.routers.webhook2mqtt_router.entrypoints=websecure"
-      - "traefik.http.routers.webhook2mqtt_router.rule=Host(`netatmo.jru.me`)"
+      - "traefik.http.routers.webhook2mqtt_router.rule=Host(`${WEBHOOK_HOST}`)"
       - "traefik.http.routers.webhook2mqtt_router.tls=true"
       - "traefik.http.routers.webhook2mqtt_router.tls.certresolver=my_certresolver"
-    restart: always
 # log to syslog | optional
     logging:
       driver: syslog
