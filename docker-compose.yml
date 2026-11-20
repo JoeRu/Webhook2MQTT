@@ -2,9 +2,9 @@ services:
   webhook2mqtt:
     build: .
     restart: always
-# adapt to your needs
-#    ports:
-#      - "127.0.0.1:5058:80"
+    # Expose locally; put a reverse proxy (e.g. Traefik, see below) in front for HTTPS.
+    ports:
+      - "127.0.0.1:5058:80"
 #    dns_search: lan
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
@@ -17,23 +17,31 @@ services:
       # MQTT_USER: ${MQTT_USER}
       # MQTT_PASSWORD: ${MQTT_PASSWORD}
       # MQTT_TLS: ${MQTT_TLS:-false}
+      # MQTT_CA_CERTS: ${MQTT_CA_CERTS}
+      # MQTT_QOS: ${MQTT_QOS:-0}
+      # MQTT_RETAIN: ${MQTT_RETAIN:-true}
+      # MQTT_REPORT_ERRORS: ${MQTT_REPORT_ERRORS:-false}
+      # MQTT_PUBLISH_TIMEOUT: ${MQTT_PUBLISH_TIMEOUT:-5}
+      # ALLOW_SUBTOPICS: ${ALLOW_SUBTOPICS:-false}
+      # TIMESTAMP_FIELD: ${TIMESTAMP_FIELD:-timestamp}
       # WEBHOOK_TOKEN: ${WEBHOOK_TOKEN}
-# example config for https with traefik
+      # LOG_LEVEL: ${LOG_LEVEL:-INFO}
+# example config for https with traefik (remove `ports:` above when using it)
 #    networks:
 #      - traefik_proxy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.webhook2mqtt_router_http.entrypoints=web"
-      - "traefik.http.routers.webhook2mqtt_router_http.rule=Host(`${WEBHOOK_HOST}`)"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.webhook2mqtt_router_http.entrypoints=web"
+#      - "traefik.http.routers.webhook2mqtt_router_http.rule=Host(`${WEBHOOK_HOST}`)"
 #      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
 #      - "traefik.http.routers.webhook2mqtt_router_http.middlewares=https_redirect"
-      - "traefik.http.routers.webhook2mqtt_router.entrypoints=websecure"
-      - "traefik.http.routers.webhook2mqtt_router.rule=Host(`${WEBHOOK_HOST}`)"
-      - "traefik.http.routers.webhook2mqtt_router.tls=true"
-      - "traefik.http.routers.webhook2mqtt_router.tls.certresolver=my_certresolver"
-# log to syslog | optional
-    logging:
-      driver: syslog
+#      - "traefik.http.routers.webhook2mqtt_router.entrypoints=websecure"
+#      - "traefik.http.routers.webhook2mqtt_router.rule=Host(`${WEBHOOK_HOST}`)"
+#      - "traefik.http.routers.webhook2mqtt_router.tls=true"
+#      - "traefik.http.routers.webhook2mqtt_router.tls.certresolver=my_certresolver"
+# log to syslog | optional (requires a syslog daemon on the host)
+#    logging:
+#      driver: syslog
 
 #networks:
 #  traefik_proxy:
