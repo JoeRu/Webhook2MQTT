@@ -20,7 +20,7 @@ by gunicorn as an app factory: `gunicorn 'main:create_app()'`).
 | `requirements.txt`     | Pinned runtime deps: Flask, paho-mqtt, gunicorn             |
 | `requirements-dev.txt` | Pinned dev deps: pytest, ruff                               |
 | `pyproject.toml`       | ruff + pytest configuration                                 |
-| `Dockerfile`           | `python:3.12-slim`, non-root user, healthcheck, port 80     |
+| `Dockerfile`           | `python:3.15-slim`, non-root user, healthcheck, port 80     |
 | `docker-compose.yml`   | Example deployment; Traefik and syslog blocks are opt-in    |
 | `.env.example`         | Documented env vars; copy to `.env` (git-ignored)           |
 | `.github/`             | CI (ruff, pytest, docker build) and Dependabot              |
